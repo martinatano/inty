@@ -106,6 +106,7 @@ function confirmarCarrito() {
         }
     }
 }
+confirmarCarrito()
 
 function calcularTotal(){
     console.log("carrito de compras:");
