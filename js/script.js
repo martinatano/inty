@@ -78,8 +78,8 @@ let carrito = []
 let producto;
 
 function buscarProducto() {
-    let nombreProducto = prompt("Hola! ingrese el producto que quisiera comprar (Falafels, Milanesas veganas, Medallones de garbanzos, Arrolladitos de berenjena)");
-    producto = productos.find ((p) => p.nombreProducto.toLowerCase() == nombreProducto.toLowerCase())
+    let compra = prompt("Hola! ingrese el producto que quisiera comprar (Falafels, Milanesas veganas, Medallones de garbanzos, Arrolladitos de berenjena)");
+    producto = productos.find ((p) => p.nombreProducto.toLowerCase() === compra.toLowerCase())
 }
 
 function agregarAlCarrito() {
@@ -89,7 +89,7 @@ function agregarAlCarrito() {
             producto: producto.nombreProducto,
             cantidad: cantidad,
             subtotal: producto.precio * cantidad
-        })
+        });
     }
     else {
         alert("Ingrese una cantidad valida.")
@@ -98,8 +98,8 @@ function agregarAlCarrito() {
 
 function confirmarCarrito() {
     while (true) {
-        buscarProducto()
-        agregarAlCarrito()
+        buscarProducto();
+        agregarAlCarrito();
 
         if (!confirm("queres agregar otro producto?")){
             break;
@@ -108,9 +108,11 @@ function confirmarCarrito() {
 }
 
 function calcularTotal(){
+    console.log("carrito de compras:");
     carrito.forEach((item) => {
        console.log(` - ${item.cantidad} ${item.producto}: ${item.subtotal}`)
     })
     let total = carrito.reduce ((sum, item) => sum + item.subtotal, 0)
     console.log(`total a pagar ${total}`)
 }
+calcularTotal()
