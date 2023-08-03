@@ -127,6 +127,7 @@ function agregarAlCarrito(event) {
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
+const modalBody = document.getElementById("modal-body")
 
 function cargarProductosCarrito(array) {
     modalBody.innerHTML = ""
