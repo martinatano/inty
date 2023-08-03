@@ -115,12 +115,8 @@ function agregarAlCarrito(event) {
     let producto = productos.find((producto) => producto.id == parseInt(productoId));
 
     let productoEnCarrito = carrito.find((item) => item.id == productoId);
-    if (productoEnCarrito) {
-        productoEnCarrito.cantidad += producto.cantidad;
-    }
-    else {
-        carrito.push({ ...producto });
-    }
+    // operador ternario if
+    productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
@@ -138,7 +134,7 @@ function cargarProductosCarrito(array) {
       <div class="card-body">
               <h4 class="card-title">${productoCarrito.nombreProducto}</h4>
           
-              <p class="card-text">$${productoCarrito.precio}</p> 
+              <p class="card-text"> seleccionaste ${productoCarrito.cantidad} unidad/es a $${productoCarrito.precio} cada una </p> 
               <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
       </div>    
   </div>
