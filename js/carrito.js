@@ -3,7 +3,7 @@ const productos = [
         id: 1,
         nombreProducto: "Arrolladitos de coliflor x6",
         precio: 850,
-        imagen: "../assets/arrolladitos coliflor.jpg",
+        imagen: "assets/arrolladitos coliflor.jpg",
         cantidad: 0
 
     },
@@ -11,14 +11,14 @@ const productos = [
         id: 2,
         nombreProducto: "Milanesas no pollo x4",
         precio: 800,
-        imagen: "../assets/mila no-carne.jpg",
+        imagen: "assets/mila no-carne.jpg",
         cantidad: 0
     },
     {
         id: 3,
         nombreProducto: "Burger Sweet",
         precio: 600,
-        imagen: "../assets/burger sweet.jpg",
+        imagen: "assets/burger sweet.jpg",
         cantidad: 0
 
     },
@@ -26,35 +26,35 @@ const productos = [
         id: 4,
         nombreProducto: "Burrito",
         precio: 2000,
-        imagen: "../assets/burrito.jpg",
+        imagen: "assets/burrito.jpg",
         cantidad: 0
     },
     {
         id: 5,
         nombreProducto: "Nuggets x6",
         precio: 700,
-        imagen: "../assets/nuggets de tofu.jpg",
+        imagen: "assets/nuggets de tofu.jpg",
         cantidad: 0
     },
     {
         id: 6,
         nombreProducto: "Pizzetas de coliflor x4",
         precio: 850,
-        imagen: "../assets/pizzetas cuscus.jpg",
+        imagen: "assets/pizzetas cuscus.jpg",
         cantidad: 0
     },
     {
         id: 7,
         nombreProducto: "Falafels",
         precio: 700,
-        imagen: "../assets/Falafels.jpg",
+        imagen: "assets/Falafels.jpg",
         cantidad: 0
     },
     {
         id: 8,
         nombreProducto: "Empanadas x6",
         precio: 1250,
-        imagen: "../assets/empanadas.jpg",
+        imagen: "assets/empanadas.jpg",
         cantidad: 0
     },
 
@@ -70,7 +70,7 @@ for (let i = 0; i < productos.length; i++) {
     let cardHTML = `
     <div class="col-md-4 mb-4">
     <div class="card">
-      <img src="${producto.imagen}" class="card-img-top" alt="Imagen del producto">
+      <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
       <div class="card-body">
         <h5 class="card-title">${producto.nombreProducto}</h5>
         <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
@@ -121,8 +121,7 @@ function agregarAlCarrito(event) {
     else {
         carrito.push({ ...producto });
     }
-    console.log("Producto agregado al carrito. ID: " + producto.id)
-    console.log("carrito", carrito)
+
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
 
@@ -132,11 +131,12 @@ const modalBody = document.getElementById("modal-body")
 function cargarProductosCarrito(array) {
     modalBody.innerHTML = ""
 
+
     array.forEach(productoCarrito => {
         modalBody.innerHTML += `<div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.id}" style="max-width: 540px;">
-      <img class="card-img-top" height="300px" src="assets/${productoCarrito.imagen}" alt="${productoCarrito.titulo}">
+      <img class="card-img-top" height="300px" src="../${productoCarrito.imagen}" alt="${productoCarrito.nombreProducto}">
       <div class="card-body">
-              <h4 class="card-title">${productoCarrito.titulo}</h4>
+              <h4 class="card-title">${productoCarrito.nombreProducto}</h4>
           
               <p class="card-text">$${productoCarrito.precio}</p> 
               <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
