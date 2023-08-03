@@ -128,7 +128,7 @@ for (let i = 0; i < productos.length; i++) {
       <div class="card-body">
         <h5 class="card-title">${producto.nombreProducto}</h5>
         <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
-        <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> <!-- Agregamos el atributo data-producto-id -->
+        <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
         <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
       </div>
     </div>
@@ -151,33 +151,76 @@ for (let i = 0; i < agregarButtons.length; i++) {
 
 }
 
-function actualizarCantidad (event){
-let input = event.target;
-let productoId = input.getAttribute("data-producto-id");
-let cantidad = parseInt(input.value);//lo q escribe el user en el input
-//buscar el producto por id en el array de productos
+function actualizarCantidad(event) {
+    let input = event.target;
+    let productoId = input.getAttribute("data-producto-id");
+    let cantidad = parseInt(input.value);//lo q escribe el user en el input
+    //buscar el producto por id en el array de productos
 
-let producto = productos.find((producto) => producto.id === parseInt(productoId))
-// actualizar la q del producto en mi array de productos
-producto.cantidad = cantidad
+    let producto = productos.find((producto) => producto.id === parseInt(productoId))
+    // actualizar la q del producto en mi array de productos
+    producto.cantidad = cantidad
 }
 
-function agregarAlCarrito(event){
+function agregarAlCarrito(event) {
     let button = event.target;
     let productoid = button.getAttribute("data-producto-id")
 
-    let producto = productos.find((producto) => producto.id == parseInt (producto.id));
+    let producto = productos.find((producto) => producto.id == parseInt(productoid));
 
-    let productoEnCarrito = carrito.find((item) => item.id == producto.id);
-if (productoEnCarrito){
-    productoEnCarrito.cantidad += producto.cantidad;
+    let productoEnCarrito = carrito.find((item) => item.id == productoid);
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad += producto.cantidad;
+    }
+    else {
+        carrito.push({ ...producto });
+    }
+    console.log("Producto agregado al carrito. ID: " + producto.id)
+    console.log("carrito", carrito)
 }
-else{
-    carrito.push({...producto});
+
+let productosEnCarrito = []
+if (localStorage.getItem("carrito")) {
+    productosEnCarrito = JSON.parse(localStorage.getItem("carrito"))
+} else {
+    localStorage.setItem("carrito", JSON.stringify(productosEnCarrito))
 }
-console.log("Producto agregado al carrito. ID: "+ producto.id)
-console.log("carrito", carrito)
+
+let botonCarrito = document.getElementById("botonCarrito")
+
+
+function cargarProductosCarrito(array) {
+    modalBody.innerHTML = ""
+
+    array.forEach(productoCarrito => {
+        modalBody.innerHTML += `<div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.id}" style="max-width: 540px;">
+      <img class="card-img-top" height="300px" src="assets/${productoCarrito.imagen}" alt="${productoCarrito.titulo}">
+      <div class="card-body">
+              <h4 class="card-title">${productoCarrito.titulo}</h4>
+          
+              <p class="card-text">$${productoCarrito.precio}</p> 
+              <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
+      </div>    
+  </div>
+`
+    });
+
+    array.forEach((productoCarrito, indice) => {
+        document.getElementById(`botonEliminar${productoCarrito.id}`).addEventListener("click", () => {
+            let cardProducto = document.getElementById(`productoCarrito${productoCarrito.id}`)
+            cardProducto.remove()
+            productosEnCarrito.splice(indice, 1)
+            localStorage.setItem("carrito", JSON.stringify(productosEnCarrito))
+
+
+        })
+
+    });
+
 }
+botonCarrito.addEventListener("click", () => {
+    cargarProductosCarrito(productosEnCarrito)
+})
 
 
 /* let carrito = []

@@ -1,46 +1,47 @@
-.card{
+.card {
     height: 100%;
     padding: 5px;
 }
 
 
-.card-img-top{
+.card-img-top {
     height: 500px;
     object-fit: cover;
 }
 
-.card-title{
-    color:indianred
+.card-title {
+    color: indianred
 }
 
-.card-text{
-    color:saddlebrown;
+.card-text {
+    color: saddlebrown;
 }
 
-.btn{
+
+.btn {
     background-color: darksalmon;
     color: black;
-    border-color:sienna;
+    border-color: sienna;
 }
 
-body header nav div a img{
+body header nav div a img {
     height: 150px;
     width: 150px;
 }
 
-.hero{
+.hero {
     justify-content: center;
 }
-.hero h1{
-font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-font-size: 30px;
-align-items: center;
-color:indianred
+
+.hero h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    align-items: center;
+    color: indianred
 }
 
-.hero h2{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.hero h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
-    color:indianred
+    color: indianred
 }
-
