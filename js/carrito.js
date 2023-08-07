@@ -89,12 +89,26 @@ for (let i = 0; i < cantidadInputs.length; i++) {
     input.addEventListener("input", actualizarCantidad)
 }
 
-let agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
+const agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
+
 
 for (let i = 0; i < agregarButtons.length; i++) {
     let button = agregarButtons[i]
     button.addEventListener("click", agregarAlCarrito);
 
+}
+
+
+for (let i = 0; i < agregarButtons.length; i++) {
+    let button = agregarButtons[i]
+    button.addEventListener("click", () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Genial!',
+            text: 'Producto agregado al carrito',
+          })
+
+    });
 }
 
 function actualizarCantidad(event) {
@@ -154,6 +168,9 @@ function cargarProductosCarrito(array) {
     });
 
 }
+
 botonCarrito.addEventListener("click", () => {
     cargarProductosCarrito(carrito)
 })
+
+
