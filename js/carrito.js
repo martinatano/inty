@@ -1,19 +1,17 @@
 const productCards = document.getElementById("product-cards")
-productCards.setAttribute("class", "contenedor_cards");
-const url = "../json/data.json";
-let productos = []
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let productos = [];
 
-fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-        generarTarjetasProductos(data);
-        productos = data;
-    });
+fetch('../json/data.json')
+.then((response) => response.json())
+.then((data) => {
+    productos = data;
+    generarTarjetasProductos(productos);
+})
 
-function generarTarjetasProductos(data) {
-    data.forEach((producto) => {
-        let card = document.createElement("div");
-        card.innerHTML = `
+function generarTarjetasProductos(productos){
+    productos.forEach(producto => {
+        let cardHTML = `
         <div class="col-md-4 mb-4">
         <div class="card">
           <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
@@ -25,42 +23,10 @@ function generarTarjetasProductos(data) {
           </div>
         </div>
       </div>`;
-
-        productCards.appendChild(card);
+      productCards.innerHTML += cardHTML;
     })
-    agregarBotones();
 }
 
-
-//  for (let i = 0; i < productos.length; i++) {
-//      let producto = productos[i];
-
-//      let cardHTML = `
-//      <div class="col-md-4 mb-4">
-//      <div class="card">
-//        <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
-//        <div class="card-body">
-//          <h5 class="card-title">${producto.nombreProducto}</h5>
-//          <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
-//          <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
-//          <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
-//        </div>
-//      </div>
-//    </div>`;
-
-//      productCards.innerHTML += cardHTML;
-//  }
-
-function agregarBotones() {
-    let agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
-
-
-    for (let i = 0; i < agregarButtons.length; i++) {
-        let button = agregarButtons[i]
-        button.addEventListener("click", agregarAlCarrito);
-
-    }
-}
 
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
 
@@ -68,6 +34,31 @@ for (let i = 0; i < cantidadInputs.length; i++) {
     let input = cantidadInputs[i];
     input.addEventListener("input", actualizarCantidad)
 }
+
+const agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
+
+
+for (let i = 0; i < agregarButtons.length; i++) {
+    let button = agregarButtons[i]
+    button.addEventListener("click", agregarAlCarrito);
+
+}
+
+
+for (let i = 0; i < agregarButtons.length; i++) {
+    let button = agregarButtons[i]
+    button.addEventListener("click", () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Genial!',
+            text: 'Producto agregado al carrito',
+            confirmButtonColor: `darksalmon`, 
+            confirmButtonText: 'Aceptar'
+          })
+
+    });
+}
+
 function actualizarCantidad(event) {
     let input = event.target;
     let productoId = input.getAttribute("data-producto-id");
@@ -79,11 +70,6 @@ function actualizarCantidad(event) {
     producto.cantidad = cantidad
 }
 
-
-
-
-const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
 function agregarAlCarrito(event) {
     let button = event.target;
     let productoId = button.getAttribute("data-producto-id")
@@ -92,24 +78,9 @@ function agregarAlCarrito(event) {
 
     let productoEnCarrito = carrito.find((item) => item.id == productoId);
     // operador ternario if
-    productoEnCarrito ? productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
+    productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito))
-}
-
-
-for (let i = 0; i < agregarButtons.length; i++) {
-    let button = agregarButtons[i]
-    button.addEventListener("click", () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Genial!',
-            text: 'Producto agregado al carrito',
-            confirmButtonColor: `darksalmon`,
-            confirmButtonText: 'Aceptar'
-        })
-
-    });
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
@@ -132,11 +103,6 @@ function cargarProductosCarrito(array) {
 `
     });
 
-
-
-
-
-
     array.forEach((productoCarrito, indice) => {
         document.getElementById(`botonEliminar${productoCarrito.id}`).addEventListener("click", () => {
             let cardProducto = document.getElementById(`productoCarrito${productoCarrito.id}`)
@@ -154,7 +120,3 @@ function cargarProductosCarrito(array) {
 botonCarrito.addEventListener("click", () => {
     cargarProductosCarrito(carrito)
 })
-
-// getProducts().then(producto => {
-//     mostrarCarrito(producto)
-// })
