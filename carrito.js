@@ -6,26 +6,27 @@ fetch('./json/data.json')
 .then((response) => response.json())
 .then((data) => {
     productos = data;
+    generarTarjetasProductos(productos);
 })
 
-for (let i = 0; i < productos.length; i++) {
-     let producto = productos[i];
+function generarTarjetasProductos(productos){
+    productos.forEach(producto => {
+        let cardHTML = `
+        <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
+          <div class="card-body">
+            <h5 class="card-title">${producto.nombreProducto}</h5>
+            <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
+            <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
+            <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>`;
+      productCards.innerHTML += cardHTML;
+    })
+}
 
-     let cardHTML = `
-     <div class="col-md-4 mb-4">
-     <div class="card">
-       <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
-       <div class="card-body">
-         <h5 class="card-title">${producto.nombreProducto}</h5>
-         <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
-         <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
-         <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
-       </div>
-     </div>
-   </div>`;
-
-     productCards.innerHTML += cardHTML;
- }
 
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
 
