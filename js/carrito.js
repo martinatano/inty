@@ -1,116 +1,62 @@
-const productos = [
-    {
-        id: 1,
-        nombreProducto: "Arrolladitos de coliflor x6",
-        precio: 850,
-        imagen: "assets/arrolladitos coliflor.jpg",
-        cantidad: 0
-
-    },
-    {
-        id: 2,
-        nombreProducto: "Milanesas no pollo x4",
-        precio: 800,
-        imagen: "assets/mila no-carne.jpg",
-        cantidad: 0
-    },
-    {
-        id: 3,
-        nombreProducto: "Burger Sweet",
-        precio: 600,
-        imagen: "assets/burger sweet.jpg",
-        cantidad: 0
-
-    },
-    {
-        id: 4,
-        nombreProducto: "Burrito",
-        precio: 2000,
-        imagen: "assets/burrito.jpg",
-        cantidad: 0
-    },
-    {
-        id: 5,
-        nombreProducto: "Nuggets x6",
-        precio: 700,
-        imagen: "assets/nuggets de tofu.jpg",
-        cantidad: 0
-    },
-    {
-        id: 6,
-        nombreProducto: "Pizzetas de coliflor x4",
-        precio: 850,
-        imagen: "assets/pizzetas cuscus.jpg",
-        cantidad: 0
-    },
-    {
-        id: 7,
-        nombreProducto: "Falafels",
-        precio: 700,
-        imagen: "assets/Falafels.jpg",
-        cantidad: 0
-    },
-    {
-        id: 8,
-        nombreProducto: "Empanadas x6",
-        precio: 1250,
-        imagen: "assets/empanadas.jpg",
-        cantidad: 0
-    },
-
-]
-
 const productCards = document.getElementById("product-cards")
-const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+productCards.setAttribute("class", "contenedor_cards");
+let url = "../json/data.json";
+let productos = []
 
+fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+        generarTarjetasProductos(data);
+        productos = data;
+    });
 
-for (let i = 0; i < productos.length; i++) {
-    let producto = productos[i];
+function generarTarjetasProductos(data) {
+    data.forEach((producto) => {
+        let card = document.createElement("div");
+        card.innerHTML = `
+        <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
+          <div class="card-body">
+            <h5 class="card-title">${producto.nombreProducto}</h5>
+            <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
+            <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
+            <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>`;
 
-    let cardHTML = `
-    <div class="col-md-4 mb-4">
-    <div class="card">
-      <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
-      <div class="card-body">
-        <h5 class="card-title">${producto.nombreProducto}</h5>
-        <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
-        <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
-        <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
-      </div>
-    </div>
-  </div>`;
-
-    productCards.innerHTML += cardHTML;
+        productCards.appendChild(card);
+    })
+    agregarBotones();
 }
+
+
+//  for (let i = 0; i < productos.length; i++) {
+//      let producto = productos[i];
+
+//      let cardHTML = `
+//      <div class="col-md-4 mb-4">
+//      <div class="card">
+//        <img src="../${producto.imagen}" class="card-img-top" alt="Imagen del producto">
+//        <div class="card-body">
+//          <h5 class="card-title">${producto.nombreProducto}</h5>
+//          <p class="card-text">Precio: $${producto.precio.toFixed(2)}</p>
+//          <input type="number" class="form-control mb-2" placeholder="Cantidad" value="0" data-producto-id="${producto.id}"> 
+//          <button class="btn btn-agregar-carrito" data-producto-id="${producto.id}">Agregar al carrito</button>
+//        </div>
+//      </div>
+//    </div>`;
+
+//      productCards.innerHTML += cardHTML;
+//  }
+
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
 
 for (let i = 0; i < cantidadInputs.length; i++) {
     let input = cantidadInputs[i];
     input.addEventListener("input", actualizarCantidad)
 }
-
-const agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
-
-
-for (let i = 0; i < agregarButtons.length; i++) {
-    let button = agregarButtons[i]
-    button.addEventListener("click", agregarAlCarrito);
-
-}
-
-
-for (let i = 0; i < agregarButtons.length; i++) {
-    let button = agregarButtons[i]
-    button.addEventListener("click", () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Genial!',
-            text: 'Producto agregado al carrito',
-          })
-
-    });
-}
-
 function actualizarCantidad(event) {
     let input = event.target;
     let productoId = input.getAttribute("data-producto-id");
@@ -122,6 +68,20 @@ function actualizarCantidad(event) {
     producto.cantidad = cantidad
 }
 
+
+function agregarBotones() {
+    let agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
+
+
+    for (let i = 0; i < agregarButtons.length; i++) {
+        let button = agregarButtons[i]
+        button.addEventListener("click", agregarAlCarrito);
+
+    }
+}
+
+const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
 function agregarAlCarrito(event) {
     let button = event.target;
     let productoId = button.getAttribute("data-producto-id")
@@ -130,9 +90,24 @@ function agregarAlCarrito(event) {
 
     let productoEnCarrito = carrito.find((item) => item.id == productoId);
     // operador ternario if
-    productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
+    productoEnCarrito ? productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito))
+}
+
+
+for (let i = 0; i < agregarButtons.length; i++) {
+    let button = agregarButtons[i]
+    button.addEventListener("click", () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Genial!',
+            text: 'Producto agregado al carrito',
+            confirmButtonColor: `darksalmon`,
+            confirmButtonText: 'Aceptar'
+        })
+
+    });
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
@@ -148,12 +123,17 @@ function cargarProductosCarrito(array) {
       <div class="card-body">
               <h4 class="card-title">${productoCarrito.nombreProducto}</h4>
           
-              <p class="card-text"> seleccionaste ${productoCarrito.cantidad} unidad/es a $${productoCarrito.precio} cada una </p> 
+              <p class="card-text"> Cantidad: ${productoCarrito.cantidad} | Subtotal: $${productoCarrito.precio * productoCarrito.cantidad}  </p> 
               <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
       </div>    
   </div>
 `
     });
+
+
+
+
+
 
     array.forEach((productoCarrito, indice) => {
         document.getElementById(`botonEliminar${productoCarrito.id}`).addEventListener("click", () => {
@@ -173,4 +153,6 @@ botonCarrito.addEventListener("click", () => {
     cargarProductosCarrito(carrito)
 })
 
-
+// getProducts().then(producto => {
+//     mostrarCarrito(producto)
+// })
