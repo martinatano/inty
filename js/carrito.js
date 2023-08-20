@@ -1,6 +1,6 @@
 const productCards = document.getElementById("product-cards")
 productCards.setAttribute("class", "contenedor_cards");
-let url = "../json/data.json";
+const url = "../json/data.json";
 let productos = []
 
 fetch(url)
@@ -51,6 +51,17 @@ function generarTarjetasProductos(data) {
 //      productCards.innerHTML += cardHTML;
 //  }
 
+function agregarBotones() {
+    let agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
+
+
+    for (let i = 0; i < agregarButtons.length; i++) {
+        let button = agregarButtons[i]
+        button.addEventListener("click", agregarAlCarrito);
+
+    }
+}
+
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
 
 for (let i = 0; i < cantidadInputs.length; i++) {
@@ -69,16 +80,7 @@ function actualizarCantidad(event) {
 }
 
 
-function agregarBotones() {
-    let agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
 
-
-    for (let i = 0; i < agregarButtons.length; i++) {
-        let button = agregarButtons[i]
-        button.addEventListener("click", agregarAlCarrito);
-
-    }
-}
 
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
