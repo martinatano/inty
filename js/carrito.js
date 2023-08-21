@@ -53,6 +53,7 @@ for (let i = 0; i < agregarButtons.length; i++) {
 
 }
 }
+
 function SwalFire(){
 for (let i = 0; i < agregarButtons.length; i++) {
    button.addEventListener("click", () => {
