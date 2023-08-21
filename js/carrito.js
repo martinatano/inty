@@ -1,6 +1,6 @@
 const productCards = document.getElementById("product-cards")
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
+let productos = []
 
 fetch('../json/data.json')
 .then((response) => response.json())
