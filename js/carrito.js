@@ -5,8 +5,9 @@ let productos = []
 fetch('../json/data.json')
 .then((response) => response.json())
 .then((data) => {
-    generarTarjetasProductos(productos);
     productos = data;
+    generarTarjetasProductos(productos);
+   
 })
 
 function generarTarjetasProductos(productos){
