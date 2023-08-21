@@ -1,4 +1,4 @@
-[
+{"productos":[
     {"id": 1,"nombreProducto": "Arrolladitos de coliflor x6","precio": 850,"imagen": "assets/arrolladitos coliflor.jpg","cantidad": 0},
     {"id": 2,"nombreProducto": "Milanesas no pollo x4","precio": 800,"imagen": "assets/mila no-carne.jpg","cantidad": 0},
     {"id": 3,"nombreProducto": "Burger Sweet","precio": 600,"imagen": "assets/burger sweet.jpg","cantidad": 0},
@@ -8,3 +8,4 @@
     {"id": 7,"nombreProducto": "Falafels","precio": 700,"imagen": "assets/Falafels.jpg","cantidad": 0},
     {"id": 8,"nombreProducto": "Empanadas x6","precio": 1250,"imagen": "assets/empanadas.jpg","cantidad": 0}
 ]
+}
