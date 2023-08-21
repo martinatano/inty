@@ -27,6 +27,7 @@ function generarTarjetasProductos(productos){
     })
     calcularImputs();
     agregarBoton();
+    SwalFire();
     actualizarCantidad;
     agregarAlCarrito;
     cargarProductosCarrito(carrito);
@@ -52,20 +53,20 @@ for (let i = 0; i < agregarButtons.length; i++) {
 
 }
 }
+function SwalFire(){
+for (let i = 0; i < agregarButtons.length; i++) {
+   button.addEventListener("click", () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Genial!',
+            text: 'Producto agregado al carrito',
+            confirmButtonColor: `darksalmon`, 
+            confirmButtonText: 'Aceptar'
+          })
 
-// for (let i = 0; i < agregarButtons.length; i++) {
-//     let button = agregarButtons[i]
-//     button.addEventListener("click", () => {
-//         Swal.fire({
-//             icon: 'success',
-//             title: 'Genial!',
-//             text: 'Producto agregado al carrito',
-//             confirmButtonColor: `darksalmon`, 
-//             confirmButtonText: 'Aceptar'
-//           })
-
-//     });
-// }
+    });
+}
+}
 
 
 function actualizarCantidad(event) {
@@ -90,13 +91,6 @@ function agregarAlCarrito(event) {
     productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    Swal.fire({
-        icon: 'success',
-        title: 'Genial!',
-        text: 'Producto agregado al carrito',
-        confirmButtonColor: 'darksalmon',
-        confirmButtonText: 'Aceptar'
-    });
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
