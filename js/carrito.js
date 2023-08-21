@@ -76,9 +76,12 @@ function agregarAlCarrito(event) {
 
     let producto = productos.find((producto) => producto.id == parseInt(productoId));
 
+    let inputCantidad = document.querySelector(`input[data-producto-id="${productoId}"]`);
+    let cantidad = parseInt(inputCantidad.value);
+
     let productoEnCarrito = carrito.find((item) => item.id == productoId);
     // operador ternario if
-    productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
+    productoEnCarrito ?  productoEnCarrito.cantidad += cantidad : carrito.push({ ...producto, cantidad:cantidad });
 
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
