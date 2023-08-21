@@ -7,8 +7,6 @@ fetch('../json/data.json')
 .then((data) => {
     productos = data;
     generarTarjetasProductos(data);
-    actualizarCantidad();
-    agregarAlCarrito();
 })
 
 function generarTarjetasProductos(data){
