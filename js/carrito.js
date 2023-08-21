@@ -1,6 +1,5 @@
 const productCards = document.getElementById("product-cards")
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let productos = [];
 
 
 fetch('../json/data.json')
@@ -26,7 +25,6 @@ function generarTarjetasProductos(data){
       </div>`;
       productCards.innerHTML += cardHTML;
     })
-    agregarBoton();
 }
 
 
@@ -37,7 +35,7 @@ for (let i = 0; i < cantidadInputs.length; i++) {
     input.addEventListener("input", actualizarCantidad)
 }
 
-function agregarBoton(){
+
 const agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
 
 
@@ -60,7 +58,6 @@ for (let i = 0; i < agregarButtons.length; i++) {
           })
 
     });
-}
 }
 
 
