@@ -29,7 +29,7 @@ function generarTarjetasProductos(data){
     agregarBoton();
     actualizarCantidad();
     agregarAlCarrito();
-    cargarProductosCarrito();
+    cargarProductosCarrito(carrito);
 }
 
 function calcularImputs(){
