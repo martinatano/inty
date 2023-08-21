@@ -27,6 +27,9 @@ function generarTarjetasProductos(data){
     })
     calcularImputs();
     agregarBoton();
+    actualizarCantidad();
+    agregarAlCarrito();
+    cargarProductosCarrito();
 }
 
 function calcularImputs(){
