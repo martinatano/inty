@@ -27,7 +27,6 @@ function generarTarjetasProductos(productos){
     })
     calcularImputs();
     agregarBoton();
-    SwalFire();
     actualizarCantidad;
     agregarAlCarrito;
     cargarProductosCarrito(carrito);
@@ -53,7 +52,6 @@ for (let i = 0; i < agregarButtons.length; i++) {
 
 }
 }
-
 function SwalFire(){
 for (let i = 0; i < agregarButtons.length; i++) {
    button.addEventListener("click", () => {
@@ -92,6 +90,14 @@ function agregarAlCarrito(event) {
     productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto agregado al carrito',
+        confirmButtonColor: 'darksalmon',
+        confirmButtonText: 'Aceptar'
+    });
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
