@@ -26,7 +26,7 @@ function generarTarjetasProductos(data){
       </div>`;
       productCards.innerHTML += cardHTML;
     })
-}
+
 
 
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
@@ -58,6 +58,7 @@ for (let i = 0; i < agregarButtons.length; i++) {
           })
 
     });
+}
 }
 
 function actualizarCantidad(event) {
