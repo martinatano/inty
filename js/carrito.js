@@ -52,20 +52,20 @@ for (let i = 0; i < agregarButtons.length; i++) {
 
 }
 }
-function SwalFire(){
-for (let i = 0; i < agregarButtons.length; i++) {
-   button.addEventListener("click", () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Genial!',
-            text: 'Producto agregado al carrito',
-            confirmButtonColor: `darksalmon`, 
-            confirmButtonText: 'Aceptar'
-          })
+// function SwalFire()
+// for (let i = 0; i < agregarButtons.length; i++) {
+//     let button = agregarButtons[i]
+//     button.addEventListener("click", () => {
+//         Swal.fire({
+//             icon: 'success',
+//             title: 'Genial!',
+//             text: 'Producto agregado al carrito',
+//             confirmButtonColor: `darksalmon`, 
+//             confirmButtonText: 'Aceptar'
+//           })
 
-    });
-}
-}
+//     });
+// }
 
 
 function actualizarCantidad(event) {
