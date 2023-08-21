@@ -53,19 +53,19 @@ for (let i = 0; i < agregarButtons.length; i++) {
 }
 }
 
-for (let i = 0; i < agregarButtons.length; i++) {
-    let button = agregarButtons[i]
-    button.addEventListener("click", () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Genial!',
-            text: 'Producto agregado al carrito',
-            confirmButtonColor: `darksalmon`, 
-            confirmButtonText: 'Aceptar'
-          })
+// for (let i = 0; i < agregarButtons.length; i++) {
+//     let button = agregarButtons[i]
+//     button.addEventListener("click", () => {
+//         Swal.fire({
+//             icon: 'success',
+//             title: 'Genial!',
+//             text: 'Producto agregado al carrito',
+//             confirmButtonColor: `darksalmon`, 
+//             confirmButtonText: 'Aceptar'
+//           })
 
-    });
-}
+//     });
+// }
 
 
 function actualizarCantidad(event) {
