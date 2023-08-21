@@ -2,15 +2,16 @@ const productCards = document.getElementById("product-cards")
 const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let productos = [];
 
+
 fetch('../json/data.json')
 .then((response) => response.json())
 .then((data) => {
+    generarTarjetasProductos(data);
     productos = data;
-    generarTarjetasProductos(productos);
 })
 
-function generarTarjetasProductos(productos){
-    productos.forEach(producto => {
+function generarTarjetasProductos(data){
+    productos.forEach((producto) => {
         let cardHTML = `
         <div class="col-md-4 mb-4">
         <div class="card">
@@ -76,12 +77,9 @@ function agregarAlCarrito(event) {
 
     let producto = productos.find((producto) => producto.id == parseInt(productoId));
 
-    let inputCantidad = document.querySelector(`input[data-producto-id="${productoId}"]`);
-    let cantidad = parseInt(inputCantidad.value);
-
     let productoEnCarrito = carrito.find((item) => item.id == productoId);
     // operador ternario if
-    productoEnCarrito ?  productoEnCarrito.cantidad += cantidad : carrito.push({ ...producto, cantidad:cantidad });
+    productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
