@@ -6,10 +6,10 @@ fetch('../json/data.json')
 .then((response) => response.json())
 .then((data) => {
     productos = data;
-    generarTarjetasProductos(data);
+    generarTarjetasProductos(productos);
 })
 
-function generarTarjetasProductos(data){
+function generarTarjetasProductos(productos){
     productos.forEach((producto) => {
         let cardHTML = `
         <div class="col-md-4 mb-4">
@@ -27,8 +27,8 @@ function generarTarjetasProductos(data){
     })
     calcularImputs();
     agregarBoton();
-    actualizarCantidad();
-    agregarAlCarrito();
+    actualizarCantidad;
+    agregarAlCarrito;
     cargarProductosCarrito(carrito);
 }
 
