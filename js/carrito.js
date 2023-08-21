@@ -26,18 +26,17 @@ function generarTarjetasProductos(data){
       </div>`;
       productCards.innerHTML += cardHTML;
     })
-    agregarCantidad();
     agregarBoton();
 }
 
-function agregarCantidad(){
+
 let cantidadInputs = document.querySelectorAll(`input[type="number"]`)
 
 for (let i = 0; i < cantidadInputs.length; i++) {
     let input = cantidadInputs[i];
     input.addEventListener("input", actualizarCantidad)
 }
-}
+
 function agregarBoton(){
 const agregarButtons = document.getElementsByClassName("btn-agregar-carrito");
 
@@ -47,7 +46,7 @@ for (let i = 0; i < agregarButtons.length; i++) {
     button.addEventListener("click", agregarAlCarrito);
 
 }
-}
+
 
 for (let i = 0; i < agregarButtons.length; i++) {
     let button = agregarButtons[i]
@@ -61,6 +60,7 @@ for (let i = 0; i < agregarButtons.length; i++) {
           })
 
     });
+}
 }
 
 
