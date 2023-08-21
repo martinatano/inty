@@ -89,7 +89,14 @@ function agregarAlCarrito(event) {
     // operador ternario if
     productoEnCarrito ?  productoEnCarrito.cantidad += producto.cantidad : carrito.push({ ...producto });
 
-    localStorage.setItem("carrito", JSON.stringify(carrito))
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto agregado al carrito',
+        confirmButtonColor: 'darksalmon',
+        confirmButtonText: 'Aceptar'
+    });
 }
 
 const botonCarrito = document.getElementById("botonCarrito")
